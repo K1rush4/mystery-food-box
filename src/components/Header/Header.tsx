@@ -22,7 +22,7 @@ export default function Header({burgerState, setBurgerState, setLoginVisible}:IH
                     <img src="public/images/hamburger.svg" className={"headerBurger"} onClick={handlerBurgerClick}/>
                     <a href={"/"}>
                         <div className={"headerNameToMain"}>
-                            <img className={"headerLogoImg"} src="/images/logo.avif"/>
+                            <img className={"headerLogoImg"} src="public/images/logo.avif"/>
                             <div className={"headerLogoText"}>Mistery foooood box</div>
                         </div>
                     </a>

@@ -3,8 +3,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 300px;
+    width: 400px;
+    height: 500px;
     background-color: white;
     border-radius: 20px;
     z-index: 2;
@@ -31,4 +31,85 @@
 .loginOverlay.is-active {
     visibility: visible;
     opacity: 1;
+}
+
+#loginWindowId {
+    padding: 10px;
+}
+
+.loginCloseButton {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.loginCloseButton img {
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+}
+
+.loginWrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 65px;
+}
+
+.loginLogoImg {
+    width: 150px;
+    height: auto;
+    margin-top: -15px;
+    padding-bottom: 15px;
+}
+
+.loginForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginForm div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px 0;
+    gap: 10px;
+}
+
+.loginForm input {
+    width: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.loginLoginButton {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0 30px 0;
+}
+
+.loginLoginButton button {
+    width: 100px;
+    height: 35px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: moccasin;
+}
+
+.loginNoAccNoPass {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 15px;
+    color: #161616;
+    padding-bottom: 10px;
 }

@@ -22,8 +22,28 @@ export default function Login({loginVisible, setLoginVisible}: ILogin) {
     return (
         <>
             <div id={"loginWindowId"}>
-                123
-                <button onClick={handleLoginClose}>Крестик</button>
+                <div className={"loginCloseButton"}>
+                    <img src="public/images/close.svg" onClick={handleLoginClose}/>
+                </div>
+                <div className={"loginWrapper"}>
+                    <img className={"loginLogoImg"} src="public/images/logo.avif"/>
+                    <form className={"loginForm"}>
+                        <div>
+                            <label htmlFor="login"> Логин: </label>
+                            <input type="text" id="login"/>
+                        </div>
+                        <div>
+                            <label htmlFor="password">Пароль: </label>
+                            <input type="password" id="password"/>
+                        </div>
+                    </form>
+                    <div className={"loginLoginButton"}>
+                        <button>Войти</button>
+                    </div>
+                    <div className={"loginNoAccNoPass"}>Нет аккаунта? Создать</div>
+                    <div className={"loginNoAccNoPass"}>Забыли пароль? Восстановить</div>
+
+                </div>
             </div>
             <div className={`loginOverlay ${loginVisible ? "is-active" : ""}`}
                  onClick={handleLoginClose}/>
