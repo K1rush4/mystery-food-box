@@ -1,0 +1,162 @@
+.wrapperHeader {
+    padding: 0 3%;
+}
+
+.headerBlock {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 60px 0 30px;
+    height: 100px;
+    background-color: white;
+    border-radius: 0 0 40px 40px;
+}
+
+.headerLogoBlock a {
+    text-decoration: none;
+    color: black;
+}
+
+.headerLogoBlock {
+    display: flex;
+    align-items: center;
+}
+
+.headerNameToMain{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+@media (min-width: 800px) {
+    .headerBurger {
+        display: none;
+    }
+}
+
+@media (max-width: 799px) {
+    .headerBurger {
+        display: block;
+        width: 40px;
+        height: auto;
+        cursor: pointer;
+    }
+}
+
+.headerLogoText {
+    text-align: center;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.headerLogoImg {
+    width: 100px;
+    height: 100px;
+}
+
+.headerNav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    font-size: 20px;
+}
+
+.loginButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 50px;
+    width: 180px;
+    background-color: #EEEEEE;
+    border: none;
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+.loginButton:hover {
+    background-color: #DDDDDD;
+    cursor: pointer;
+}
+
+.loginButton:active {
+    background-color: #DDDDDD;
+    transform: translateY(2px);
+}
+
+.loginButtonImg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 1199px) and (min-width: 800px) {
+    .headerBlock {
+        padding: 0 40px 0 20px;
+        height: 80px;
+        border-radius: 0 0 30px 30px;
+    }
+
+    .headerLogoImg {
+        width: 70px;
+        height: 70px;
+    }
+
+    .headerLogoText {
+        font-size: 25px;
+    }
+
+    .headerNav {
+        font-size: 17px;
+        gap: 20px;
+    }
+
+    .loginButton {
+        height: 45px;
+        width: 140px;
+        font-size: 17px;
+    }
+
+    .loginButtonImg {
+        width: 17px;
+        height: 17px;
+    }
+}
+
+@media (max-width: 799px) {
+    .headerBlock {
+        padding: 0 25px 0 25px;
+        height: 80px;
+        border-radius: 0 0 25px 25px;
+    }
+
+    .headerLogoBlock {
+        gap: 5px;
+    }
+
+    .headerNameToMain{
+        gap: 5px;
+    }
+
+    .headerLogoImg {
+        width: 60px;
+        height: 60px;
+    }
+
+    .headerLogoText {
+        font-size: 17px;
+    }
+
+    .headerNav div {
+        display: none;
+    }
+
+    .loginButton {
+        height: 40px;
+        width: 120px;
+        font-size: 15px;
+    }
+
+    .loginButtonImg {
+        width: 17px;
+        height: 17px;
+    }
+}
