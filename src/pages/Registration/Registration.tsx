@@ -10,6 +10,7 @@ export default function Registration() {
         <>
             <Header burgerState={burgerState}
                     setBurgerState={setBurgerState}
+                    loginVisible={loginVisible}
                     setLoginVisible={setLoginVisible}/>
             <main className={"regMain"}>
                 <div className={"regWrapper"}>
@@ -28,7 +29,7 @@ export default function Registration() {
                         </div>
                         <div className={"regInput100"}>
                             <label htmlFor="email"> Электронная почта: </label>
-                            <input type="email" id="email" pattern=".+@example\.com" size="30" required/>
+                            <input type="email" id="email" pattern=".+@example\.com" required/>
                         </div>
                         <div className={"regInput100"}>
                             <label htmlFor="phone"> Телефон: </label>

@@ -3,7 +3,7 @@ import {useEffect} from "react";
 
 interface ILogin {
     loginVisible: boolean;
-    setLoginVisible: (boolean) => void;
+    setLoginVisible: (arg0: boolean) => void;
 }
 
 export default function Login({loginVisible, setLoginVisible}: ILogin) {

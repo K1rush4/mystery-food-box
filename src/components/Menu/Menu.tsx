@@ -1,10 +1,10 @@
 import "./Menu.css"
-import {menuList} from "/src/assets/data"
+import {menuList} from "../../assets/data.ts"
 import {useEffect} from "react";
 
 interface IMenu {
     burgerState: boolean;
-    setBurgerState: (boolean) => void;
+    setBurgerState: (arg0: boolean) => void;
 }
 
 export default function Menu({burgerState, setBurgerState}: IMenu) {

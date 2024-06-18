@@ -1,99 +1,106 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import Autosuggest from 'react-autosuggest';
+import React, { useState } from 'react';
 import axios from 'axios';
-import debounce from 'lodash.debounce';
+import './AddressInput.css';
 
+const YANDEX_API_KEY = import.meta.env.VITE_YANDEX_API_KEY;
 
-const getSuggestions = async (value: string) => {
-    if (value.length < 3) {
-        return [];
-    }
+interface Suggestion {
+    text: string;
+}
 
-    const YANDEX_API_KEY = "temp"
+interface GeocodeParams {
+    apikey: string;
+    format: string;
+    geocode: string;
+}
 
-    const response = await axios.get('https://geocode-maps.yandex.ru/1.x/', {
-        params: {
-            apikey: YANDEX_API_KEY,
-            format: 'json',
-            geocode: value,
-        },
-    });
+const AddressInput: React.FC = () => {
+    const [value, setValue] = useState('');
+    const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
 
-    return response.data.response.GeoObjectCollection.featureMember.map((item: any) => ({
-        text: item.GeoObject.metaDataProperty.GeocoderMetaData.text,
-    }));
-};
+    const fetchSuggestions = async (inputValue: string) => {
+        if (inputValue.length < 3) {
+            setSuggestions([]);
+            setIsOpen(false);
+            return;
+        }
 
-const renderSuggestion = (suggestion: { text: string }) => <div className="suggestion-item">{suggestion.text}</div>;
+        try {
+            const params: GeocodeParams = {
+                apikey: YANDEX_API_KEY,
+                format: 'json',
+                geocode: inputValue,
+            };
+            const response = await axios.get('https://geocode-maps.yandex.ru/1.x/', { params });
 
-export default function AddressInput() {
-    const [value, setValue] = useState<string>('');
-    const [suggestions, setSuggestions] = useState<{ text: string }[]>([]);
-
-    const YANDEX_API_KEY = import.meta.env.VITE_YANDEX_API_KEY;
-    console.log(YANDEX_API_KEY)
-
-    const debouncedGetSuggestions = useCallback(
-        debounce(async (value: string) => {
-            const suggestions = await getSuggestions(value);
+            const suggestions = response.data.response.GeoObjectCollection.featureMember.map(
+                (item: any) => ({
+                    text: item.GeoObject.metaDataProperty.GeocoderMetaData.text,
+                })
+            );
             setSuggestions(suggestions);
-        }, 1000),
-        []
-    );
-
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>, { newValue }: { newValue: string }) => {
-        setValue(newValue);
+            setIsOpen(true);
+        } catch (error) {
+            console.error('Error fetching suggestions:', error);
+            setSuggestions([]);
+            setIsOpen(false);
+        }
     };
 
-    const onSuggestionsFetchRequested = ({ value }: { value: string }) => {
-        debouncedGetSuggestions(value);
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setValue(value);
+
+        if (timerId) {
+            clearTimeout(timerId);
+        }
+
+        const newTimerId = setTimeout(() => {
+            fetchSuggestions(value).then();
+        }, 1000);
+
+        setTimerId(newTimerId);
     };
 
-    const onSuggestionsClearRequested = () => {
+    const handleSuggestionClick = (suggestion: Suggestion) => {
+        setValue(suggestion.text);
         setSuggestions([]);
+        setIsOpen(false);
     };
 
-    const inputProps = {
-        placeholder: 'Введите адрес',
-        value,
-        onChange,
-    };
-
-    useEffect(() => {
-        return () => {
-            debouncedGetSuggestions.cancel();
-        };
-    }, [debouncedGetSuggestions]);
-
-    const renderSuggestionsContainer = ({ containerProps, children }: { containerProps: any; children: any }) => {
-        return ReactDOM.createPortal(
-            <div {...containerProps} className="suggestions-container">
-                {children}
-            </div>,
-            document.body
-        );
+    const handleBlur = () => {
+        setTimeout(() => {
+            setIsOpen(false);
+        }, 200); // Small delay to allow click events to register
     };
 
     return (
-        <div className="regInput100">
-            <label htmlFor="address">Адрес доставки:</label>
-            <Autosuggest
-                suggestions={suggestions}
-                onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={onSuggestionsClearRequested}
-                getSuggestionValue={(suggestion) => suggestion.text}
-                renderSuggestion={renderSuggestion}
-                inputProps={inputProps}
-                renderSuggestionsContainer={renderSuggestionsContainer}
-                theme={{
-                    container: 'autosuggest-container',
-                    input: 'autosuggest-input',
-                    suggestionsContainer: 'suggestions-container',
-                    suggestionsList: 'suggestions-list',
-                    suggestion: 'suggestion-item',
-                }}
+        <div className="address-input-container">
+            <input
+                type="text"
+                value={value}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="address-input"
+                placeholder="Введите адрес"
             />
+            {isOpen && suggestions.length > 0 && (
+                <ul className="suggestions-container">
+                    {suggestions.map((suggestion, index) => (
+                        <li
+                            key={index}
+                            className="suggestion-item"
+                            onClick={() => handleSuggestionClick(suggestion)}
+                        >
+                            {suggestion.text}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
-}
+};
+
+export default AddressInput;

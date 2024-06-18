@@ -2,8 +2,7 @@ import "./Home.css"
 import Header from "../../components/Header/Header";
 import Menu from "../../components/Menu/Menu";
 import Card from "../../components/Card/Card";
-import {useEffect, useRef, useState} from "react";
-import Login from "../../components/Login/Login";
+import {useState} from "react";
 
 export default function Home() {
     const [burgerState, setBurgerState] = useState(false)
@@ -13,6 +12,7 @@ export default function Home() {
         <>
             <Header burgerState={burgerState}
                     setBurgerState={setBurgerState}
+                    loginVisible={loginVisible}
                     setLoginVisible={setLoginVisible}/>
             <main className={"homeMain"}>
                 <Menu burgerState={burgerState} setBurgerState={setBurgerState}/>
@@ -24,7 +24,6 @@ export default function Home() {
                     <Card />
                     <Card />
                 </div>
-                <Login loginVisible={loginVisible} setLoginVisible={setLoginVisible} />
             </main>
         </>
     )
