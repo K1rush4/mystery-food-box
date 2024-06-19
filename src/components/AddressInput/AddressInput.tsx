@@ -84,7 +84,6 @@ const AddressInput: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className="address-input"
-                placeholder="Введите адрес"
             />
             {isOpen && suggestions.length > 0 && (
                 <ul className="suggestions-container">

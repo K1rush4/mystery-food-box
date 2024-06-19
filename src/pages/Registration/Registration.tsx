@@ -1,6 +1,7 @@
 import "./Registration.css"
 import Header from "../../components/Header/Header";
 import {useState} from "react";
+import AddressInput from "../../components/AddressInput/AddressInput.tsx";
 
 export default function Registration() {
     const [burgerState, setBurgerState] = useState(false)
@@ -37,7 +38,7 @@ export default function Registration() {
                         </div>
                         <div className={"regInput100"}>
                             <label htmlFor="address"> Адрес доставки: </label>
-                            <input type="text" id="address" required/>
+                            <AddressInput />
                         </div>
                         <div className={"regInput50"}>
                             <div>
