@@ -11,3 +11,8 @@ Axios - promise-based HTTP клиент для отправки get и post за
 React-router-dom - пакет для осуществления навигации
 
 Tailwind CSS - для быстрого написания стилей
+
+
+Малые комппоненты:
+
+react-phone-input-2 - компонент для поля ввода телефона
