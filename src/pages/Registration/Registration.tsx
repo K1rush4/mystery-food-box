@@ -46,61 +46,61 @@ export default function Registration() {
 
   return (
     <>
-      {/*<Header burgerState={burgerState}*/}
-      {/*        setBurgerState={setBurgerState}*/}
-      {/*        loginVisible={loginVisible}*/}
-      {/*        setLoginVisible={setLoginVisible}/>*/}
-      {/*<main className={"regMain"}>*/}
-      {/*  <div className={"regWrapper"}>*/}
-      {/*    <div className={"regTextReg"}>Создание учетной записи</div>*/}
-      {/*    <div className={"regTextHaveAcc"}> Уже есть аккаунт? <u onClick={handlerLogin}>Войти</u></div>*/}
-      {/*    <form className={"regForm"}>*/}
-      {/*      <div className={"regInput50"}>*/}
-      {/*        <div>*/}
-      {/*          <label htmlFor="secondName"> Фамилия: </label>*/}
-      {/*          <input type="text" id="secondName" required/>*/}
-      {/*        </div>*/}
-      {/*        <div>*/}
-      {/*          <label htmlFor="firstName"> Имя: </label>*/}
-      {/*          <input type="text" id="firstName" required/>*/}
-      {/*        </div>*/}
-      {/*      </div>*/}
-      {/*      <div className={"regInput100"}>*/}
-      {/*        <label htmlFor="email"> Электронная почта: </label>*/}
-      {/*        <input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>*/}
-      {/*      </div>*/}
-      {/*      <div className={"regInput100"}>*/}
-      {/*        <label htmlFor="phone-input">Телефон</label>*/}
-      {/*        <input*/}
-      {/*          type="tel"*/}
-      {/*          id="phone-input"*/}
-      {/*          name="phone"*/}
-      {/*          value={phone}*/}
-      {/*          onChange={handleChange}*/}
-      {/*          onFocus={handleFocus}*/}
-      {/*          placeholder="+7 (___) ___-__-__"*/}
-      {/*          pattern="(\+7)?\s?\(\d{3}\)\s?\d{3}-\d{2}-\d{2}"*/}
-      {/*          required*/}
-      {/*        />*/}
-      {/*      </div>*/}
-      {/*      <div className={"regInput100"}>*/}
-      {/*        <label htmlFor="address"> Адрес доставки: </label>*/}
-      {/*        <AddressInput/>*/}
-      {/*      </div>*/}
-      {/*      <div className={"regInput50"}>*/}
-      {/*        <div>*/}
-      {/*          <label htmlFor="pass">Пароль: </label>*/}
-      {/*          <input type="password" id="pass" required/>*/}
-      {/*        </div>*/}
-      {/*        <div>*/}
-      {/*          <label htmlFor="passAgain">Повторите пароль: </label>*/}
-      {/*          <input type="password" id="passAgain" required/>*/}
-      {/*        </div>*/}
-      {/*      </div>*/}
-      {/*      <button className={"regButtonCreateAcc"}>Создать аккаунт</button>*/}
-      {/*    </form>*/}
-      {/*  </div>*/}
-      {/*</main>*/}
+      <Header burgerState={burgerState}
+              setBurgerState={setBurgerState}
+              loginVisible={loginVisible}
+              setLoginVisible={setLoginVisible}/>
+      <main className={"regMain"}>
+        <div className={"regWrapper"}>
+          <div className={"regTextReg"}>Создание учетной записи</div>
+          <div className={"regTextHaveAcc"}> Уже есть аккаунт? <u onClick={handlerLogin}>Войти</u></div>
+          <form className={"regForm"}>
+            <div className={"regInput50"}>
+              <div>
+                <label htmlFor="secondName"> Фамилия: </label>
+                <input type="text" id="secondName" required/>
+              </div>
+              <div>
+                <label htmlFor="firstName"> Имя: </label>
+                <input type="text" id="firstName" required/>
+              </div>
+            </div>
+            <div className={"regInput100"}>
+              <label htmlFor="email"> Электронная почта: </label>
+              <input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
+            </div>
+            <div className={"regInput100"}>
+              <label htmlFor="phone-input">Телефон</label>
+              <input
+                type="tel"
+                id="phone-input"
+                name="phone"
+                value={phone}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                placeholder="+7 (___) ___-__-__"
+                pattern="(\+7)?\s?\(\d{3}\)\s?\d{3}-\d{2}-\d{2}"
+                required
+              />
+            </div>
+            <div className={"regInput100"}>
+              <label htmlFor="address"> Адрес доставки: </label>
+              <AddressInput/>
+            </div>
+            <div className={"regInput50"}>
+              <div>
+                <label htmlFor="pass">Пароль: </label>
+                <input type="password" id="pass" required/>
+              </div>
+              <div>
+                <label htmlFor="passAgain">Повторите пароль: </label>
+                <input type="password" id="passAgain" required/>
+              </div>
+            </div>
+            <button className={"regButtonCreateAcc"}>Создать аккаунт</button>
+          </form>
+        </div>
+      </main>
     </>
 
   )

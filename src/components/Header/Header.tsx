@@ -1,7 +1,6 @@
 import "./Header.css"
 import Login from "../Login/Login.tsx";
 import {Link} from "react-router-dom";
-import {useEffect} from "react";
 
 interface IHeader {
   burgerState: boolean;
@@ -13,10 +12,6 @@ interface IHeader {
 }
 
 export default function Header({burgerState, setBurgerState, loginVisible, setLoginVisible, isLogin, setIsLogin}: IHeader) {
-
-  useEffect(() => {
-    setLoginVisible(false)
-  }, []);
 
   function handlerBurgerClick() {
     setBurgerState(!burgerState)

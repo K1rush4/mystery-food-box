@@ -38,7 +38,7 @@ export default function Login({loginVisible, setLoginVisible, setIsLogin}: ILogi
 
   return (
     <>
-      <div id={"loginWindowId"}>
+      <div id={"loginWindowId"} style={{ display: loginVisible ? "block" : "none" }}>
         <div className={"loginCloseButton"}>
           <img src="../../../public/images/close.svg" onClick={handleLoginClose}/>
         </div>
