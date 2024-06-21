@@ -16,8 +16,9 @@ export default function Error() {
         </div>
         <Link to="/">
           <button
-            className={"text-xl md:text-2xl mt-16 md:mt-24 p-1.5 md:p-2 xl:p-3 bg-neutral-300 border border-black rounded-xl"}>На
-            главную
+            className={"text-xl md:text-2xl mt-16 md:mt-24 p-1.5 md:p-2 xl:p-3 bg-neutral-300 border border-black rounded-xl"}
+            style={{backgroundColor:"moccasin"}}
+          >На главную
           </button>
         </Link>
       </div>

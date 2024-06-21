@@ -20,6 +20,10 @@
     padding-bottom: 40px;
 }
 
+.regTextHaveAcc u {
+    cursor: pointer;
+}
+
 .regInput50 {
     display: flex;
     justify-content: space-between;
@@ -67,4 +71,8 @@
     border-radius: 20px;
     background-color: #DDDDDD;
     cursor: pointer;
+}
+
+.special-label {
+    display: none;
 }

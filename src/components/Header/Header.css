@@ -60,6 +60,14 @@
     font-size: 20px;
 }
 
+.basketImg {
+    width: 45px;
+    height: auto;
+    padding: 5px;
+    /*border: 1px solid black;*/
+    /*border-radius: 100%;*/
+}
+
 .loginButton {
     display: flex;
     justify-content: center;
@@ -67,19 +75,18 @@
     gap: 10px;
     height: 50px;
     width: 180px;
-    background-color: #EEEEEE;
+    background-color: moccasin;
     border: none;
     border-radius: 30px;
     font-size: 20px;
 }
 
 .loginButton:hover {
-    background-color: #DDDDDD;
+    background-color: #FFD4A5;
     cursor: pointer;
 }
 
 .loginButton:active {
-    background-color: #DDDDDD;
     transform: translateY(2px);
 }
 
