@@ -14,7 +14,11 @@ interface GeocodeParams {
     geocode: string;
 }
 
-const AddressInput: React.FC = () => {
+interface AddressInputProps {
+    addressRef?: React.RefObject<HTMLInputElement>;
+}
+
+const AddressInput: React.FC<AddressInputProps> = ({ addressRef }) => {
     const [value, setValue] = useState('');
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
     const [isOpen, setIsOpen] = useState(false);
@@ -84,6 +88,8 @@ const AddressInput: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className="address-input"
+                ref={addressRef}
+                required
             />
             {isOpen && suggestions.length > 0 && (
                 <ul className="suggestions-container">

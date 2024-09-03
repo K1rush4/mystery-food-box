@@ -1,6 +1,7 @@
 import "./Login.css"
 import {useEffect, useRef} from "react";
 import {userData} from "../../assets/data.ts";
+import {Link} from "react-router-dom";
 
 interface ILogin {
   loginVisible: boolean;
@@ -34,8 +35,6 @@ export default function Login({loginVisible, setLoginVisible, setIsLogin}: ILogi
     })
   }
 
-
-
   return (
     <>
       <div id={"loginWindowId"} style={{ display: loginVisible ? "block" : "none" }}>
@@ -57,8 +56,12 @@ export default function Login({loginVisible, setLoginVisible, setIsLogin}: ILogi
           <div className={"loginLoginButton"}>
             <button type="submit" onClick={handleLogin}>Войти</button>
           </div>
-          <div className={"loginNoAccNoPass"}>Нет аккаунта? Создать</div>
-          <div className={"loginNoAccNoPass"}>Забыли пароль? Восстановить</div>
+          <div className={"loginNoAccNoPass"}>Нет аккаунта?&nbsp;
+            <Link to={"/reg"}>
+              <u>Создать</u>
+            </Link>
+          </div>
+          <div className={"loginNoAccNoPass"}>Забыли пароль?&nbsp;<u>Восстановить</u></div>
 
         </div>
       </div>

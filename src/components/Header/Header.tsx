@@ -29,12 +29,12 @@ export default function Header({burgerState, setBurgerState, loginVisible, setLo
         <div className={"headerBlock"}>
           <div className={"headerLogoBlock"}>
             <img src="../../../public/images/hamburger.svg" className={"headerBurger"} onClick={handlerBurgerClick}/>
-            <a href={"/"}>
+            <Link to={'/'}>
               <div className={"headerNameToMain"}>
                 <img className={"headerLogoImg"} src="../../../public/images/logo.avif"/>
                 <div className={"headerLogoText"}>Mistery foooood box</div>
               </div>
-            </a>
+            </Link>
           </div>
           <nav className={"headerNav"}>
             <div>Меню</div>
@@ -46,7 +46,7 @@ export default function Header({burgerState, setBurgerState, loginVisible, setLo
 
             {isLogin ?
               <Link to={"/profile"}>
-                <img className={"loginButtonImg"} src="../../../public/images/login2.svg"/>
+                <img className={"loginButtonImg2"} src="../../../public/images/login2.svg"/>
               </Link>
               :
               <button className={"loginButton"} onClick={handleLoginClick}>
