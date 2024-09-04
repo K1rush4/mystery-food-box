@@ -16,7 +16,6 @@ export default function Card() {
             </div>
             <div className={"cardPriceToCard"}>
                 <div>499 р.</div>
-                {/*<button className={"cardButton"}> В корзину</button>*/}
               <ButtonToCart
                 itemInCard={itemInCard}
                 setItemInCard={setItemInCard}
