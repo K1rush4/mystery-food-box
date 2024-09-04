@@ -4,6 +4,7 @@ import Registration from "./pages/Registration/Registration";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Error from "./pages/Error/Error.tsx";
 import {useState} from "react";
+import Product from "./pages/Product/Product.tsx";
 
 function App() {
     const [isLogin, setIsLogin] = useState(false);
@@ -17,6 +18,11 @@ function App() {
         {
             path: "/reg",
             element: <Registration />,
+            errorElement: <Error />,
+        },
+        {
+            path: "/product",
+            element: <Product />,
             errorElement: <Error />,
         },
     ]);

@@ -1,7 +1,9 @@
 import "./Card.css"
+import ButtonToCart from "../ButtonToCart/ButtonToCart.tsx";
+import {useState} from "react";
 
 export default function Card() {
-
+  const [itemInCard, setItemInCard] = useState(0);
 
     return (
         <div className={"cardWrapper"}>
@@ -14,7 +16,11 @@ export default function Card() {
             </div>
             <div className={"cardPriceToCard"}>
                 <div>499 р.</div>
-                <button className={"cardButton"}> В корзину</button>
+                {/*<button className={"cardButton"}> В корзину</button>*/}
+              <ButtonToCart
+                itemInCard={itemInCard}
+                setItemInCard={setItemInCard}
+                inMainPage={true} />
             </div>
         </div>
     )

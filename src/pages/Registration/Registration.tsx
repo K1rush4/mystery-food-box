@@ -32,7 +32,6 @@ export default function Registration() {
 
   const handleChangePhone = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    // Форматирование ввода телефона: добавляем скобки и тире
     const formattedValue = formatPhoneNumber(inputValue);
     setPhone(formattedValue);
   };
