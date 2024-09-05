@@ -1,13 +1,13 @@
 import "./Registration.css"
-import Header from "../../components/Header/Header";
 import React, {useRef, useState} from "react";
 import AddressInput from "../../components/AddressInput/AddressInput.tsx";
 import {useNavigate} from "react-router-dom";
 
-export default function Registration() {
-  const [burgerState, setBurgerState] = useState(false)
-  const [loginVisible, setLoginVisible] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+interface IRegistration {
+  setLoginVisible: (state: boolean) => void;
+}
+
+export default function Registration({setLoginVisible}:IRegistration) {
   const [phone, setPhone] = useState('');
   const [isPasswordMismatch, setIsPasswordMismatch] = useState(false);
   const [inputFirstName, setInputFirstName] = useState('');
@@ -98,13 +98,6 @@ export default function Registration() {
 
   return (
     <>
-      <Header burgerState={burgerState}
-              setBurgerState={setBurgerState}
-              loginVisible={loginVisible}
-              setLoginVisible={setLoginVisible}
-              isLogin={isLogin}
-              setIsLogin={setIsLogin}
-      />
       <main className={"regMain"}>
         <div className={"regWrapper"}>
           <div className={"regTextReg"}>Создание учетной записи</div>
