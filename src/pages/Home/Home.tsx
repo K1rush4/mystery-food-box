@@ -1,37 +1,29 @@
 import "./Home.css"
-import Header from "../../components/Header/Header";
-import Menu from "../../components/Menu/Menu";
+import Burger from "../../components/Burger/Burger.tsx";
 import Card from "../../components/Card/Card";
-import {useState} from "react";
+import MenuList from "../../components/MenuList/MenuList.tsx";
 
 interface IHome {
-  isLogin: boolean;
-  setIsLogin: (state: boolean) => void;
+  burgerState: boolean;
+  setBurgerState: (state: boolean) => void;
 }
 
-export default function Home({isLogin, setIsLogin}: IHome) {
-  const [burgerState, setBurgerState] = useState(false)
-  const [loginVisible, setLoginVisible] = useState(false);
+export default function Home({burgerState, setBurgerState}: IHome) {
 
   return (
-    <>
-      <Header burgerState={burgerState}
-              setBurgerState={setBurgerState}
-              loginVisible={loginVisible}
-              setLoginVisible={setLoginVisible}
-              isLogin={isLogin}
-              setIsLogin={setIsLogin}/>
-      <main className={"homeMain"}>
-        <Menu burgerState={burgerState} setBurgerState={setBurgerState}/>
-        <div className={"contentWindow"}>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-        </div>
-      </main>
-    </>
+    <main className={"homeMain"}>
+      <div className={"hidden md:flex flex-col min-h-[300px] bg-white p-[15px] w-[30%] rounded-[15px] " +
+        "xl:p-[20px] xl:w-[25%] xl:rounded-[20px]"}>
+        <MenuList/>
+      </div>
+      <div className={"contentWindow"}>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+      </div>
+    </main>
   )
 }

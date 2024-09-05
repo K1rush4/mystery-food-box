@@ -1,6 +1,7 @@
 import "./Header.css"
 import Login from "../Login/Login.tsx";
 import {Link} from "react-router-dom";
+import Burger from "../Burger/Burger.tsx";
 
 interface IHeader {
   burgerState: boolean;
@@ -26,12 +27,13 @@ export default function Header({burgerState, setBurgerState, loginVisible, setLo
   return (
     <>
       <header className={"wrapperHeader"}>
+        <Burger burgerState={burgerState} setBurgerState={setBurgerState}/>
         <div className={"headerBlock"}>
           <div className={"headerLogoBlock"}>
             <img src="../../../public/images/hamburger.svg" className={"headerBurger"} onClick={handlerBurgerClick}/>
             <Link to={'/'}>
               <div className={"headerNameToMain"}>
-                <img className={"headerLogoImg"} src="../../../public/images/logo.avif"/>
+                <img className={"w-[60px] md:w-[70px] xl:w-[100px] h-[60px] md:h-[70px] xl:h-[100px]"} src="../../../public/images/logo.avif"/>
                 <div className={"headerLogoText"}>Mistery foooood box</div>
               </div>
             </Link>
