@@ -1,14 +1,8 @@
 import "./Home.css"
-import Burger from "../../components/Burger/Burger.tsx";
 import Card from "../../components/Card/Card";
 import MenuList from "../../components/MenuList/MenuList.tsx";
 
-interface IHome {
-  burgerState: boolean;
-  setBurgerState: (state: boolean) => void;
-}
-
-export default function Home({burgerState, setBurgerState}: IHome) {
+export default function Home() {
 
   return (
     <main className={"homeMain"}>

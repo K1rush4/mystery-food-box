@@ -27,7 +27,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Home burgerState={burgerState} setBurgerState={setBurgerState}/>,
+          element: <Home />,
           errorElement: <Error/>,
         },
         {

@@ -19,7 +19,7 @@ export default function Card() {
               <ButtonToCart
                 itemInCard={itemInCard}
                 setItemInCard={setItemInCard}
-                inMainPage={true} />
+                style={"main"} />
             </div>
         </div>
     )
