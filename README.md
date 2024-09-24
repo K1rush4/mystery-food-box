@@ -11,3 +11,9 @@ Axios - promise-based HTTP клиент для отправки get и post за
 React-router-dom - пакет для осуществления навигации
 
 Tailwind CSS - для быстрого написания стилей
+
+----
+
+NodeJs, Express, Sequalize, Cors, fileUpload, uuid
+
+
