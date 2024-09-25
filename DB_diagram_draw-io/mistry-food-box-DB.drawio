@@ -37,7 +37,7 @@
         <mxCell id="vVkm2VaXqE_l-jsmJ4-X-1" value="product_id" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="Lx1wsoIwzQs99YJabuMk-6">
           <mxGeometry y="86" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Lx1wsoIwzQs99YJabuMk-35" value="product_counter" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="Lx1wsoIwzQs99YJabuMk-6" vertex="1">
+        <mxCell id="Lx1wsoIwzQs99YJabuMk-35" value="productCounter" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="Lx1wsoIwzQs99YJabuMk-6" vertex="1">
           <mxGeometry y="116" width="160" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Lx1wsoIwzQs99YJabuMk-9" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmandOne;startArrow=ERmandOne;exitX=1;exitY=0.178;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Lx1wsoIwzQs99YJabuMk-3" target="Lx1wsoIwzQs99YJabuMk-8" edge="1">
