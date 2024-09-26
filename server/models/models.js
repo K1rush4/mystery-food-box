@@ -1,7 +1,7 @@
 const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
 
-const user = sequelize.define('user', {
+const User = sequelize.define('user', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   email: {type: DataTypes.STRING, unique: true},
   phone: {type: DataTypes.STRING, unique: true},
@@ -10,44 +10,50 @@ const user = sequelize.define('user', {
   role: {type: DataTypes.STRING, defaultValue: "USER"}
 })
 
-const category = sequelize.define('category', {
+const Category = sequelize.define('category', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: {type: DataTypes.STRING, unique: true, allowNull: false}
 })
 
-const product = sequelize.define('product', {
+const Product = sequelize.define('product', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: {type: DataTypes.STRING, unique: true, allowNull: false},
   price: {type: DataTypes.STRING},
   img: {type: DataTypes.STRING},
 })
 
-const product_info = sequelize.define('product_info', {
+const Product_info = sequelize.define('product_info', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   title: {type: DataTypes.STRING, unique: true, allowNull: false},
   description: {type: DataTypes.STRING, allowNull: false}
 })
 
-const basket = sequelize.define('basket', {
+const Basket = sequelize.define('basket', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-user.hasOne(basket)
-basket.belongsTo(user)
+const Basket_product = sequelize.define('basket_product', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  productCounter: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 1}
+});
 
-basket.hasMany(product)
-product.belongsTo(basket)
+User.hasOne(Basket)
+Basket.belongsTo(User)
 
-category.hasMany(product)
-product.belongsTo(category)
+Basket.belongsToMany(Product, { through: Basket_product });
+Product.belongsToMany(Basket, { through: Basket_product });
 
-product.hasOne(product_info)
-product_info.belongsTo(product)
+Category.hasMany(Product)
+Product.belongsTo(Category)
+
+Product.hasOne(Product_info)
+Product_info.belongsTo(Product)
 
 module.exports = {
-  user,
-  basket,
-  product,
-  product_info,
-  category
+  User,
+  Basket,
+  Product,
+  Product_info,
+  Category,
+  Basket_product
 }

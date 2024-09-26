@@ -1,5 +1,5 @@
 const ApiError = require("../error/ApiError");
-const {product} = require("../models/models");
+const {Product} = require("../models/models");
 const uuid = require("uuid");
 const path = require("path");
 const fs = require('fs');
@@ -17,7 +17,7 @@ class productController {
         return next(ApiError.badRequest('Не задана категория товаров'))
       }
       const productCreate =
-        await product.create({name, price, img: fileName, categoryId})
+        await Product.create({name, price, img: fileName, categoryId})
       img.mv(path.resolve(__dirname, '..', "static", fileName));
       return res.json(productCreate)
     } catch (e) {
@@ -31,10 +31,10 @@ class productController {
       const { categoryId } = req.query;
       if (categoryId) {
         productAll =
-          await product.findAll({ where: { categoryId } })
+          await Product.findAll({ where: { categoryId } })
       } else {
         productAll =
-          await product.findAll()
+          await Product.findAll()
       }
       return res.json(productAll)
     } catch (e) {
@@ -46,7 +46,7 @@ class productController {
     try {
       const productId = req.params.id
       const productOne =
-        await product.findOne({where: {id: productId}});
+        await Product.findOne({where: {id: productId}});
       return res.json(productOne)
     } catch (e) {
       next(ApiError.badRequest(e.message))
@@ -59,13 +59,13 @@ class productController {
       if (!id) {
         return next(ApiError.badRequest('Не задан id типа'))
       }
-      const productToDelete = await product.findOne({ where: { id } });
+      const productToDelete = await Product.findOne({ where: { id } });
       if (!productToDelete) {
         return next(ApiError.badRequest('Продукт не найден'));
       }
       const imageName = productToDelete.img;
       const imagePath = path.resolve(__dirname, '..', 'static', imageName);
-      await product.destroy({ where: { id } });
+      await Product.destroy({ where: { id } });
       fs.unlink(imagePath, (err) => {
         if (err) {
           return next(ApiError.badRequest('Ошибка при удалении изображения'));

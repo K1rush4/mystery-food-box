@@ -1,11 +1,11 @@
 const ApiError = require("../error/ApiError");
-const {category} = require("../models/models");
+const {Category} = require("../models/models");
 
 class categoryController {
   async create(req, res, next) {
     try {
       const {name} = req.body
-      const typeCreate = await category.create({name})
+      const typeCreate = await Category.create({name})
       return res.json(typeCreate)
     } catch (e) {
       next(ApiError.badRequest(e.message))
@@ -15,7 +15,7 @@ class categoryController {
 
   async getAll(req, res, next) {
     try {
-      const categoryAll = await category.findAll()
+      const categoryAll = await Category.findAll()
       return res.json(categoryAll)
     } catch (e) {
       next(ApiError.badRequest(e.message))
@@ -29,7 +29,7 @@ class categoryController {
       if (!id) {
         return next(ApiError.badRequest('Не задан id типа'))
       }
-      const deleteOne = await category.destroy({where: {id}})
+      const deleteOne = await Category.destroy({where: {id}})
       return res.json("delete success")
     } catch (e) {
       next(ApiError.badRequest(e.message))
