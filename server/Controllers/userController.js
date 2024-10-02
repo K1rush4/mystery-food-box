@@ -14,16 +14,20 @@ const generateJwt = (id, email, role) => {
 class userController {
   async registration(req, res, next) {
     try {
-      const {name, email, phone, password, address, role} = req.body
-      if (!email || !password) {
-        return next(ApiError.badRequest('Некорректный email или password'))
+      const {name, surname, email, phone, address, password, role} = req.body
+    if (!name || !surname || !email || !phone || !address || !password || !role) {
+        return next(ApiError.badRequest('Не полные данные'))
       }
-      const candidate = await User.findOne({where: {email}})
-      if (candidate) {
+      const candidateEmail = await User.findOne({where: {email}})
+      if (candidateEmail) {
         return next(ApiError.badRequest('Пользователь с таким email уже существует'))
       }
+      const candidatePhone = await User.findOne({where: {phone}})
+      if (candidatePhone) {
+        return next(ApiError.badRequest('Пользователь с таким phone уже существует'))
+      }
       const hashPassword = await bcrypt.hash(password, 5)
-      const user = await User.create({name, email, phone, password: hashPassword, address, role})
+      const user = await User.create({name, surname, email, phone, password: hashPassword, address, role})
       const basket = await Basket.create({userId: user.id})
       const token = generateJwt(user.id, user.email, user.role)
       return res.json({token})

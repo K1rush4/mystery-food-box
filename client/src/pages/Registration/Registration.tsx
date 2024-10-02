@@ -1,7 +1,9 @@
 import "./Registration.css"
-import React, {useRef, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import AddressInput from "../../components/AddressInput/AddressInput.tsx";
 import {useNavigate} from "react-router-dom";
+import {login, registration} from "../../http/userAPI.ts";
+import {LoginContext} from "../../App.tsx";
 
 interface IRegistration {
   setLoginVisible: (state: boolean) => void;
@@ -19,6 +21,7 @@ export default function Registration({setLoginVisible}:IRegistration) {
   const surnameRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const { setIsLogin } = useContext(LoginContext);
 
   function handlerLogin() {
     setLoginVisible(true);
@@ -76,7 +79,7 @@ export default function Registration({setLoginVisible}:IRegistration) {
     setIsPasswordMismatch(false)
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const password = passwordRef.current?.value || '';
@@ -90,9 +93,14 @@ export default function Registration({setLoginVisible}:IRegistration) {
     const passwordsMatch = password === passwordAgain;
 
     if (allFieldsFilled && passwordsMatch) {
-      alert('Форма успешно отправлена');
-      //ToDo Отправка данных на сервер
-      navigate('/')
+      const token = await registration(name, surname, email, phone, address, password, "USER")
+      if (token) {
+        const token = await login(email, password)
+        if (token) {
+          setIsLogin(true)
+        }
+        navigate('/')
+      }
     }
   };
 

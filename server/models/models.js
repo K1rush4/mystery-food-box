@@ -7,7 +7,9 @@ const User = sequelize.define('user', {
   phone: {type: DataTypes.STRING, unique: true},
   password: {type: DataTypes.STRING},
   address: {type: DataTypes.STRING},
-  role: {type: DataTypes.STRING, defaultValue: "USER"}
+  role: {type: DataTypes.STRING, defaultValue: "USER"},
+  name: {type: DataTypes.STRING, allowNull: false},
+  surname: {type: DataTypes.STRING, allowNull: false},
 })
 
 const Category = sequelize.define('category', {
