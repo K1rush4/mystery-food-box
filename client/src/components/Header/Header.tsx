@@ -14,8 +14,6 @@ interface IHeader {
 
 export default function Header({burgerState, setBurgerState, loginVisible, setLoginVisible, isLogin, setIsLogin}: IHeader) {
 
-  console.log(typeof setIsLogin);
-
   function handlerBurgerClick() {
     setBurgerState(!burgerState)
   }

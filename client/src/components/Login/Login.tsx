@@ -1,7 +1,7 @@
 import "./Login.css"
 import {useEffect, useRef} from "react";
-import {userData} from "../../assets/data.ts";
 import {Link} from "react-router-dom";
+import {login} from "../../http/userAPI.ts";
 
 interface ILogin {
   loginVisible: boolean;
@@ -25,14 +25,12 @@ export default function Login({loginVisible, setLoginVisible, setIsLogin}: ILogi
     setLoginVisible(false);
   }
 
-  //Todo отправка формы на сервер и получение токена
-  function handleLogin() {
-    userData.map((user) => {
-      if (loginRef.current!.value ==  user.login && passwordRef.current!.value ==  user.password) {
-        setIsLogin(true);
-        setLoginVisible(false);
-      }
-    })
+  async function handleLogin() {
+    const token = await login(loginRef.current!.value, passwordRef.current!.value)
+    if (token) {
+      setIsLogin(true)
+      setLoginVisible(false);
+    }
   }
 
   return (
@@ -45,7 +43,7 @@ export default function Login({loginVisible, setLoginVisible, setIsLogin}: ILogi
           <img className={"loginLogoImg"} src="../../../public/images/logo.avif"/>
           <form className={"loginForm"}>
             <div>
-              <label htmlFor="login"> Логин: </label>
+              <label htmlFor="login"> Email: </label>
               <input type="text" id="login" ref={loginRef}/>
             </div>
             <div>
@@ -58,7 +56,7 @@ export default function Login({loginVisible, setLoginVisible, setIsLogin}: ILogi
           </div>
           <div className={"loginNoAccNoPass"}>Нет аккаунта?&nbsp;
             <Link to={"/reg"}>
-              <u>Создать</u>
+              <u onClick={handleLoginClose}>Создать</u>
             </Link>
           </div>
           <div className={"loginNoAccNoPass"}>Забыли пароль?&nbsp;<u>Восстановить</u></div>
