@@ -1,7 +1,7 @@
 import {$authHost, $host} from "./index";
 
-export const createCategory = async (category:string) => {
-  const {data} = await $authHost.post('api/category/add', category)
+export const createCategory = async (name:string) => {
+  const {data} = await $authHost.post('api/category/add', {name})
   return data
 }
 
@@ -10,8 +10,8 @@ export const fetchCategory = async () => {
   return data
 }
 
-export const deleteCategory = async (categoryId:string) => {
-  const {data} = await $host.post('api/category/del', categoryId)
+export const deleteCategory = async (id:string) => {
+  const {data} = await $authHost.post('api/category/del', {id})
   return data
 }
 

@@ -15,18 +15,18 @@ import {jwtDecode} from "jwt-decode";
 interface ILoginContext {
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdmin: boolean
 }
 
 const defaultLoginContext: ILoginContext = {
   isLogin: false,
   setIsLogin: () => {},
+  isAdmin: false
 };
 
 export const LoginContext = createContext<ILoginContext>(defaultLoginContext);
 
 function App() {
-  // const [burgerState, setBurgerState] = useState(false)
-  // const [loginVisible, setLoginVisible] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -95,7 +95,7 @@ function App() {
   ]);
 
   return (
-    <LoginContext.Provider value={{isLogin,setIsLogin}}>
+    <LoginContext.Provider value={{isLogin,setIsLogin, isAdmin}}>
       <RouterProvider router={router}/>
     </LoginContext.Provider>
   )

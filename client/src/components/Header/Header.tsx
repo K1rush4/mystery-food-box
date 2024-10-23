@@ -9,7 +9,7 @@ export default function Header() {
   const [burgerState, setBurgerState] = useState(false)
   const [loginVisible, setLoginVisible] = useState(false);
 
-  const { isLogin} = useContext(LoginContext);
+  const {isLogin, isAdmin} = useContext(LoginContext);
 
   function handlerBurgerClick() {
     setBurgerState(!burgerState)
@@ -30,12 +30,18 @@ export default function Header() {
             <img src="../../../public/images/hamburger.svg" className={"headerBurger"} onClick={handlerBurgerClick}/>
             <Link to={'/'}>
               <div className={"headerNameToMain"}>
-                <img className={"w-[60px] md:w-[70px] xl:w-[100px] h-[60px] md:h-[70px] xl:h-[100px]"} src="../../../public/images/logo.avif"/>
+                <img className={"w-[60px] md:w-[70px] xl:w-[100px] h-[60px] md:h-[70px] xl:h-[100px]"}
+                     src="../../../public/images/logo.avif"/>
                 <div className={"headerLogoText"}>Mistery foooood box</div>
               </div>
             </Link>
           </div>
           <nav className={"headerNav"}>
+            {isAdmin &&
+              <Link to={"/admin"}>
+                <div>Админ панель</div>
+              </Link>
+            }
             <div>Меню</div>
             <div>Доставка</div>
             <div>О нас</div>
@@ -56,7 +62,7 @@ export default function Header() {
           </nav>
         </div>
       </header>
-      <Login loginVisible={loginVisible} setLoginVisible={setLoginVisible} />
+      <Login loginVisible={loginVisible} setLoginVisible={setLoginVisible}/>
     </>
 
   )
