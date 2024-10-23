@@ -5,11 +5,13 @@ import {useNavigate} from "react-router-dom";
 import {login, registration} from "../../http/userAPI.ts";
 import {LoginContext} from "../../App.tsx";
 
-interface IRegistration {
-  setLoginVisible: (state: boolean) => void;
-}
+// interface IRegistration {
+//   setLoginVisible: (state: boolean) => void;
+// }
 
-export default function Registration({setLoginVisible}:IRegistration) {
+// export default function Registration({setLoginVisible}:IRegistration) {
+export default function Registration() {
+
   const [phone, setPhone] = useState('');
   const [isPasswordMismatch, setIsPasswordMismatch] = useState(false);
   const [inputFirstName, setInputFirstName] = useState('');
@@ -22,10 +24,6 @@ export default function Registration({setLoginVisible}:IRegistration) {
   const addressRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { setIsLogin } = useContext(LoginContext);
-
-  function handlerLogin() {
-    setLoginVisible(true);
-  }
 
   const handleFocusPhone = () => {
     if (phone === '') {
@@ -109,7 +107,6 @@ export default function Registration({setLoginVisible}:IRegistration) {
       <main className={"regMain"}>
         <div className={"regWrapper"}>
           <div className={"regTextReg"}>Создание учетной записи</div>
-          <div className={"regTextHaveAcc"}> Уже есть аккаунт? <u onClick={handlerLogin}>Войти</u></div>
           <form className={"regForm"} onSubmit={handleSubmit}>
             <div className={"regInput50"}>
               <div>

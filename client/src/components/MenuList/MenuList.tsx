@@ -1,12 +1,6 @@
 import {useEffect, useState} from "react";
 import {fetchCategory} from "../../http/productAPI.ts";
-
-interface MenuListItem {
-  id:number;
-  name: string;
-  created_at: string;
-  updated_at: string;
-}
+import {MenuListItem} from "../../intefaces.ts";
 
 export default function MenuList() {
   const [menuList, setMenuList] = useState([]);
@@ -16,7 +10,6 @@ export default function MenuList() {
       try {
         const categories = await fetchCategory();
         setMenuList(categories);
-        console.log(categories)
       } catch (error) {
         console.error("Error fetching categories:", error);
       }

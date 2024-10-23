@@ -9,6 +9,7 @@ const Profile = () => {
   const logout = () => {
     setIsLogin(false)
     navigate('/')
+    localStorage.removeItem("token");
   }
 
   return (

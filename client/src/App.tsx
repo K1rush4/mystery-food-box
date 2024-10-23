@@ -3,12 +3,14 @@ import Home from "./pages/Home/Home";
 import Registration from "./pages/Registration/Registration";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Error from "./pages/Error/Error.tsx";
-import React, {createContext, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import Product from "./pages/Product/Product.tsx";
 import Cart from "./pages/Cart/Cart.tsx";
 import Layout from "./pages/Layout/Layout.tsx";
 import Profile from "./pages/Profile/Profile.tsx";
 import AuthRequired from "./pages/AuthRequired/AuthRequired.tsx";
+import AdminPanel from "./pages/AdminPanel/AdminPanel.tsx";
+import {jwtDecode} from "jwt-decode";
 
 interface ILoginContext {
   isLogin: boolean;
@@ -23,21 +25,39 @@ const defaultLoginContext: ILoginContext = {
 export const LoginContext = createContext<ILoginContext>(defaultLoginContext);
 
 function App() {
-  const [burgerState, setBurgerState] = useState(false)
-  const [loginVisible, setLoginVisible] = useState(false);
+  // const [burgerState, setBurgerState] = useState(false)
+  // const [loginVisible, setLoginVisible] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+
+    if (token) {
+      try {
+        const decoded: any = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+
+        if (decoded.exp > currentTime) {
+          setIsLogin(true);
+          if (decoded.role === "ADMIN") {
+            setIsAdmin(true);
+          }
+        } else {
+          localStorage.removeItem("token");
+        }
+      } catch (error) {
+        console.error("Invalid token");
+        localStorage.removeItem("token");
+      }
+    }
+  }, []);
 
   const router = createBrowserRouter([
     {
       element:
-        <Layout
-          burgerState={burgerState}
-          setBurgerState={setBurgerState}
-          loginVisible={loginVisible}
-          setLoginVisible={setLoginVisible}
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-        />,
+        <Layout />,
       children: [
         {
           path: "/",
@@ -46,7 +66,7 @@ function App() {
         },
         {
           path: "/reg",
-          element: <Registration setLoginVisible={setLoginVisible}/>,
+          element: <Registration />,
           errorElement: <Error/>,
         },
         {
@@ -62,6 +82,11 @@ function App() {
         {
           path: "/profile",
           element: isLogin ? <Profile/> : <AuthRequired/>,
+          errorElement: <Error/>,
+        },
+        {
+          path: "/admin",
+          element: isAdmin ? <AdminPanel/> : <AuthRequired/>,
           errorElement: <Error/>,
         },
       ]

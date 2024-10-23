@@ -1,15 +1,16 @@
 import "./Login.css"
-import {useEffect, useRef} from "react";
+import {useContext, useEffect, useRef} from "react";
 import {Link} from "react-router-dom";
 import {login} from "../../http/userAPI.ts";
+import {LoginContext} from "../../App.tsx";
 
 interface ILogin {
   loginVisible: boolean;
   setLoginVisible: (arg0: boolean) => void;
-  setIsLogin: (arg0: boolean) => void;
 }
 
-export default function Login({loginVisible, setLoginVisible, setIsLogin}: ILogin) {
+export default function Login({loginVisible, setLoginVisible}: ILogin) {
+  const { setIsLogin } = useContext(LoginContext);
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -27,6 +28,7 @@ export default function Login({loginVisible, setLoginVisible, setIsLogin}: ILogi
 
   async function handleLogin() {
     const token = await login(loginRef.current!.value, passwordRef.current!.value)
+    console.log(token);
     if (token) {
       setIsLogin(true)
       setLoginVisible(false);

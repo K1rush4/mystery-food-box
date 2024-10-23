@@ -2,17 +2,14 @@ import "./Header.css"
 import Login from "../Login/Login.tsx";
 import {Link} from "react-router-dom";
 import Burger from "../Burger/Burger.tsx";
+import {useContext, useState} from "react";
+import {LoginContext} from "../../App.tsx";
 
-interface IHeader {
-  burgerState: boolean;
-  setBurgerState: (state: boolean) => void;
-  loginVisible: boolean;
-  setLoginVisible: (state: boolean) => void;
-  isLogin: boolean;
-  setIsLogin: (state: boolean) => void;
-}
+export default function Header() {
+  const [burgerState, setBurgerState] = useState(false)
+  const [loginVisible, setLoginVisible] = useState(false);
 
-export default function Header({burgerState, setBurgerState, loginVisible, setLoginVisible, isLogin, setIsLogin}: IHeader) {
+  const { isLogin} = useContext(LoginContext);
 
   function handlerBurgerClick() {
     setBurgerState(!burgerState)
@@ -59,7 +56,7 @@ export default function Header({burgerState, setBurgerState, loginVisible, setLo
           </nav>
         </div>
       </header>
-      <Login loginVisible={loginVisible} setLoginVisible={setLoginVisible} setIsLogin={setIsLogin}/>
+      <Login loginVisible={loginVisible} setLoginVisible={setLoginVisible} />
     </>
 
   )
