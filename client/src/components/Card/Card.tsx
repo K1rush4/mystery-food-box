@@ -8,7 +8,7 @@ export default function Card() {
     return (
         <div className={"cardWrapper"}>
             <div className={"cardImgWrapper"}>
-                <img src="public/images/card-img.png" className={"cardImg"} />
+                <img src="/images/card-img.png" className={"cardImg"} />
             </div>
             <div>
                 <div className={"cardMainText"}>Завтрак маленький</div>

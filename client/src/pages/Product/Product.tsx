@@ -12,7 +12,7 @@ export default function Product() {
     <main className={"p-[3%]"}>
       <div className={"bg-white p-7 md:p-9 xl:p-12 rounded-[25px]"}>
         <div className={"flex gap-7 md:gap-9 xl:gap-12 mb-8"}>
-          <img className={"w-1/2 max-w-[500px]"} src="public/images/card-img.png"/>
+          <img className={"w-1/2 max-w-[500px]"} src="/images/card-img.png"/>
           <div className={"w-1/2 flex flex-col justify-between"}>
             <div>
               <div className={"text-3xl md:text-5xl xl:text-6xl mb-8"}>Заголовок карточки</div>

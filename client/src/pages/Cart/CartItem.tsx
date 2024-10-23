@@ -19,7 +19,7 @@ export default function CartItem({checked, onCheckChange }:ICartItem ) {
             onChange={(event) => onCheckChange(event.target.checked)}
           />
         </div>
-        <img className={"w-full"} src="public/images/card-img.png"/>
+        <img className={"w-full"} src="/images/card-img.png"/>
       </div>
       <div className={"w-3/6  flex  flex-col justify-between"}>
       <div className={"text-2xl"}>Комплексный обед</div>
@@ -27,7 +27,7 @@ export default function CartItem({checked, onCheckChange }:ICartItem ) {
       </div>
       <div className={"w-1/6 text-xl flex flex-col justify-between items-end"}>
         <img className={"w-[25px] h-[25px] opacity-0 group-hover:opacity-30 hover:!opacity-100"} id={"trash"}
-             src="public/images/trash.png"/>
+             src="/images/trash.png"/>
         <div>499 Р</div>
       </div>
     </div>
