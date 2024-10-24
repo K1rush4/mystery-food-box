@@ -15,6 +15,32 @@ export const deleteCategory = async (id:string) => {
   return data
 }
 
+//ToDO
+export const createProduct = async (name:string) => {
+  const {data} = await $authHost.post('api/category/add', {name})
+  return data
+}
+
+export const fetchAllProducts = async () => {
+  const {data} = await $host.get('api/product')
+  return data
+}
+
+export const fetchProductsInCategory = async (id:string) => {
+  const {data} = await $host.get('api/product?categoryId=' + id)
+  return data
+}
+
+export const fetchOneProduct = async (id:string) => {
+  const {data} = await $host.get('api/product/' + id)
+  return data
+}
+
+export const deleteProduct = async (id:string) => {
+  const {data} = await $authHost.post('api/product/delete', {id})
+  return data
+}
+
 
 
 

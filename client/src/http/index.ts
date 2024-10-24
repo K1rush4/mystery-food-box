@@ -1,5 +1,4 @@
 import axios, {InternalAxiosRequestConfig} from "axios";
-import {jwtDecode} from "jwt-decode";
 
 const $host = axios.create({
   // baseURL: process.env.REACT_APP_API_URL

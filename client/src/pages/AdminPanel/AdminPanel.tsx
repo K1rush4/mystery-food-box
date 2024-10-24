@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {createCategory, deleteCategory, fetchCategory} from "../../http/productAPI.ts";
-import {MenuListItem} from "../../intefaces.ts";
+import {
+  createCategory,
+  deleteCategory,
+  deleteProduct,
+  fetchCategory,
+  fetchProductsInCategory
+} from "../../http/productAPI.ts";
+import {MenuListItem, Product} from "../../intefaces.ts";
 
 function AdminPanel() {
   const [categoriesVisible, setCategoriesVisible] = useState(false);
   const [productsVisible, setProductsVisible] = useState(false);
   const [usersVisible, setUsersVisible] = useState(false);
   const [inputCategory, setInputCategory] = useState<string>('');
-  const [inputProduct, setInputProduct] = useState<string>('');
-
   const [categories, setCategories] = useState<MenuListItem[]>([]);
+  const [productsByCategory, setProductsByCategory] = useState<{ [key: string]: Product[] }>({});
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   const getCategories = async () => {
     try {
@@ -17,6 +23,15 @@ function AdminPanel() {
       setCategories(fetchedCategories); // Обновляем состояние
     } catch (error) {
       console.error('Ошибка при получении категорий:', error);
+    }
+  };
+
+  const getProductsByCategory = async (categoryId: string) => {
+    try {
+      const products = await fetchProductsInCategory(categoryId); // Получаем товары для категории
+      setProductsByCategory((prev) => ({ ...prev, [categoryId]: products }));
+    } catch (error) {
+      console.error('Ошибка при получении товаров категории:', error);
     }
   };
 
@@ -59,9 +74,24 @@ function AdminPanel() {
     }
   };
 
-  const handleProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setInputProduct(value);
+  const handleDeleteProduct = async (id: string) => {
+    try {
+      await deleteProduct(id);
+      if (expandedCategory) {
+        await getProductsByCategory(expandedCategory);
+      }
+    } catch (error) {
+      console.error('Ошибка при удалении продукта:', error);
+    }
+  };
+
+  const handleToggleCategoryProducts = (categoryId: string) => {
+    if (expandedCategory === categoryId) {
+      setExpandedCategory(null);
+    } else {
+      setExpandedCategory(categoryId);
+      getProductsByCategory(categoryId);
+    }
   };
 
   return (
@@ -75,13 +105,10 @@ function AdminPanel() {
         {categoriesVisible && (
           <>
             <div className={"flex justify-between gap-5"}>
-              <div className={"cursor-pointer w-[320px] px-5 py-2 rounded-md text-xl bg-amber-100"}
-                   onClick={handleAddCategory}>Добавить категорию
+              <div className={"cursor-pointer w-[320px] px-5 py-2 rounded-md text-xl bg-amber-100"} onClick={handleAddCategory}>
+                Добавить категорию
               </div>
-              <input type="text"
-                     className={"border-2 rounded-md w-full"}
-                     value={inputCategory}
-                     onInput={handleChangeCategory}/>
+              <input type="text" className={"border-2 rounded-md w-full"} value={inputCategory} onInput={handleChangeCategory} />
             </div>
             <div className="pl-5 text-xl">
               {categories.length === 0 ? (
@@ -89,21 +116,43 @@ function AdminPanel() {
               ) : (
                 <ul>
                   {categories.map((category) => (
-                    <li key={category.id} className="flex items-center">
-                      <span>{category.name}</span>
-                      <img
-                        src="/images/trash.svg"
-                        alt="Delete"
-                        className="cursor-pointer ml-4 w-[20px] h-[20px]"
-                        onClick={() => handleDeleteCategory(category.id.toString())}
-                      />
+                    <li key={category.id} className="flex flex-col mb-4">
+                      <div className="flex items-center justify-between">
+                        <span className="cursor-pointer" onClick={() => handleToggleCategoryProducts(category.id.toString())}>
+                          {category.name}
+                        </span>
+                        <img
+                          src="/images/trash.svg"
+                          alt="Delete"
+                          className="cursor-pointer ml-4 w-[20px] h-[20px]"
+                          onClick={() => handleDeleteCategory(category.id.toString())}
+                        />
+                      </div>
+                      {expandedCategory === category.id.toString() && (
+                        <ul className="pl-5 mt-2">
+                          {productsByCategory[category.id]?.length ? (
+                            productsByCategory[category.id].map((product) => (
+                              <li key={product.id} className="flex justify-between items-center">
+                                <span>{product.name}</span>
+                                <img
+                                  src="/images/trash.svg"
+                                  alt="Delete"
+                                  className="cursor-pointer ml-4 w-[20px] h-[20px]"
+                                  onClick={() => handleDeleteProduct(product.id.toString())}
+                                />
+                              </li>
+                            ))
+                          ) : (
+                            <li>Нет товаров</li>
+                          )}
+                        </ul>
+                      )}
                     </li>
                   ))}
                 </ul>
               )}
             </div>
           </>
-
         )}
 
         {/* Товары */}
