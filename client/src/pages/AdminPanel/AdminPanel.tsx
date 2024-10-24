@@ -7,6 +7,7 @@ import {
   fetchProductsInCategory
 } from "../../http/productAPI.ts";
 import {MenuListItem, Product} from "../../intefaces.ts";
+import AddProductModal from "../../components/AddProductModal/AddProductModal.tsx";
 
 function AdminPanel() {
   const [categoriesVisible, setCategoriesVisible] = useState(false);
@@ -16,11 +17,13 @@ function AdminPanel() {
   const [categories, setCategories] = useState<MenuListItem[]>([]);
   const [productsByCategory, setProductsByCategory] = useState<{ [key: string]: Product[] }>({});
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [addProductVisible, setAddProductVisible] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null); // Новый стейт для ID категории
 
   const getCategories = async () => {
     try {
-      const fetchedCategories = await fetchCategory(); // Получаем категории
-      setCategories(fetchedCategories); // Обновляем состояние
+      const fetchedCategories = await fetchCategory();
+      setCategories(fetchedCategories);
     } catch (error) {
       console.error('Ошибка при получении категорий:', error);
     }
@@ -94,6 +97,17 @@ function AdminPanel() {
     }
   };
 
+  const toggleAddProductModal = (categoryId: string) => {
+    setSelectedCategoryId(categoryId);
+    setAddProductVisible(!addProductVisible);
+  };
+
+  const handleProductAdded = () => {
+    if (selectedCategoryId) {
+      getProductsByCategory(selectedCategoryId); // Обновляем товары для выбранной категории
+    }
+  };
+
   return (
     <main className="p-[3%]">
       <div className={"flex flex-col gap-5 bg-white p-7 md:p-9 xl:p-12 rounded-[25px]"}>
@@ -129,23 +143,30 @@ function AdminPanel() {
                         />
                       </div>
                       {expandedCategory === category.id.toString() && (
-                        <ul className="pl-5 mt-2">
-                          {productsByCategory[category.id]?.length ? (
-                            productsByCategory[category.id].map((product) => (
-                              <li key={product.id} className="flex justify-between items-center">
-                                <span>{product.name}</span>
-                                <img
-                                  src="/images/trash.svg"
-                                  alt="Delete"
-                                  className="cursor-pointer ml-4 w-[20px] h-[20px]"
-                                  onClick={() => handleDeleteProduct(product.id.toString())}
-                                />
-                              </li>
-                            ))
-                          ) : (
-                            <li>Нет товаров</li>
-                          )}
-                        </ul>
+                        <>
+                          <div
+                            onClick={() => toggleAddProductModal(category.id.toString())}
+                            className="w-[230px] mt-2 flex justify-center bg-yellow-100 text-xl py-2 rounded-xl cursor-pointer">
+                            Добавить продукт
+                          </div>
+                          <ul className="pl-5 mt-2">
+                            {productsByCategory[category.id]?.length ? (
+                              productsByCategory[category.id].map((product) => (
+                                <li key={product.id} className="flex items-center">
+                                  <span>{product.name}</span>
+                                  <img
+                                    src="/images/trash.svg"
+                                    alt="Delete"
+                                    className="cursor-pointer ml-4 w-[20px] h-[20px]"
+                                    onClick={() => handleDeleteProduct(product.id.toString())}
+                                  />
+                                </li>
+                              ))
+                            ) : (
+                              <li>Нет товаров</li>
+                            )}
+                          </ul>
+                        </>
                       )}
                     </li>
                   ))}
@@ -154,6 +175,13 @@ function AdminPanel() {
             </div>
           </>
         )}
+
+        <AddProductModal
+          addProductVisible={addProductVisible}
+          setAddProductVisible={setAddProductVisible}
+          categoryId={selectedCategoryId} // Передаем выбранный ID категории
+          onProductAdded={handleProductAdded} // Передаем коллбек для обновления списка товаров
+        />
 
         {/* Товары */}
         <div onClick={toggleProducts} className="flex justify-center bg-yellow-200 text-4xl
