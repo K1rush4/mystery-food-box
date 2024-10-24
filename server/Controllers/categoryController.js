@@ -1,5 +1,7 @@
 const ApiError = require("../error/ApiError");
-const {Category} = require("../models/models");
+const {Category, Product} = require("../models/models");
+const path = require("path");
+const fs = require('fs');
 
 class categoryController {
   async create(req, res, next) {
@@ -25,14 +27,35 @@ class categoryController {
 
   async delete(req, res, next) {
     try {
-      const {id} = req.body
+      const { id } = req.body;
       if (!id) {
-        return next(ApiError.badRequest('Не задан id типа'))
+        return next(ApiError.badRequest('Не задан id категории'));
       }
-      const deleteOne = await Category.destroy({where: {id}})
-      return res.json("delete success")
+
+      // Найдем все продукты, связанные с категорией
+      const products = await Product.findAll({ where: { categoryId: id } });
+
+      // Удалим изображения каждого продукта
+      for (const product of products) {
+        const imageName = product.img;
+        const imagePath = path.resolve(__dirname, '..', 'static', imageName);
+
+        // Проверяем, существует ли файл изображения, и удаляем его
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            console.error(`Ошибка при удалении изображения продукта ${product.name}:`, err);
+          } else {
+            console.log(`Изображение продукта ${product.name} успешно удалено.`);
+          }
+        });
+      }
+
+      // Теперь можно удалить саму категорию (без удаления товаров)
+      await Category.destroy({ where: { id } });
+
+      return res.json({ message: 'Категория удалена, изображения товаров удалены.' });
     } catch (e) {
-      next(ApiError.badRequest(e.message))
+      return next(ApiError.badRequest(e.message));
     }
   }
 }

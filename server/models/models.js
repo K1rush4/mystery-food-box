@@ -39,16 +39,16 @@ const Basket_product = sequelize.define('basket_product', {
   productCounter: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 1}
 });
 
-User.hasOne(Basket)
+User.hasOne(Basket, { onDelete: 'CASCADE' });
 Basket.belongsTo(User)
 
 Basket.belongsToMany(Product, { through: Basket_product });
 Product.belongsToMany(Basket, { through: Basket_product });
 
-Category.hasMany(Product)
+Category.hasMany(Product, { onDelete: 'CASCADE' });
 Product.belongsTo(Category)
 
-Product.hasOne(Product_info)
+Product.hasOne(Product_info, { onDelete: 'CASCADE' });
 Product_info.belongsTo(Product)
 
 module.exports = {
