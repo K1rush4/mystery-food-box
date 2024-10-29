@@ -46,11 +46,11 @@ export default function Login({loginVisible, setLoginVisible}: ILogin) {
           <form className={"loginForm"}>
             <div>
               <label htmlFor="login"> Email: </label>
-              <input type="text" id="login" ref={loginRef}/>
+              <input type="text" id="login" autoComplete="username" ref={loginRef}/>
             </div>
             <div>
               <label htmlFor="password">Пароль: </label>
-              <input type="password" id="password" ref={passwordRef}/>
+              <input type="password" id="password" autoComplete="current-password" ref={passwordRef}/>
             </div>
           </form>
           <div className={"loginLoginButton"}>

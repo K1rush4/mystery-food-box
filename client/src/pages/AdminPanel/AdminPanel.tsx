@@ -12,7 +12,6 @@ import AddProductInfoModal from "../../components/AddProductInfoModal/AddProduct
 
 function AdminPanel() {
   const [categoriesVisible, setCategoriesVisible] = useState(false);
-  const [productsVisible, setProductsVisible] = useState(false);
   const [usersVisible, setUsersVisible] = useState(false);
   const [inputCategory, setInputCategory] = useState<string>('');
   const [categories, setCategories] = useState<MenuListItem[]>([]);
@@ -36,7 +35,7 @@ function AdminPanel() {
   const getProductsByCategory = async (categoryId: string) => {
     try {
       const products = await fetchProductsInCategory(categoryId); // Получаем товары для категории
-      setProductsByCategory((prev) => ({ ...prev, [categoryId]: products }));
+      setProductsByCategory((prev) => ({...prev, [categoryId]: products}));
     } catch (error) {
       console.error('Ошибка при получении товаров категории:', error);
     }
@@ -47,7 +46,6 @@ function AdminPanel() {
   }, []);
 
   const toggleCategories = () => setCategoriesVisible(!categoriesVisible);
-  const toggleProducts = () => setProductsVisible(!productsVisible);
   const toggleUsers = () => setUsersVisible(!usersVisible);
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,10 +127,12 @@ function AdminPanel() {
         {categoriesVisible && (
           <>
             <div className={"flex justify-between gap-5"}>
-              <div className={"cursor-pointer w-[320px] px-5 py-2 rounded-md text-xl bg-amber-100"} onClick={handleAddCategory}>
+              <div className={"cursor-pointer w-[320px] px-5 py-2 rounded-md text-xl bg-amber-100"}
+                   onClick={handleAddCategory}>
                 Добавить категорию
               </div>
-              <input type="text" className={"border-2 rounded-md w-full"} value={inputCategory} onInput={handleChangeCategory} />
+              <input type="text" className={"border-2 rounded-md w-full"} value={inputCategory}
+                     onInput={handleChangeCategory}/>
             </div>
             <div className="pl-5 text-xl">
               {categories.length === 0 ? (
@@ -142,7 +142,8 @@ function AdminPanel() {
                   {categories.map((category) => (
                     <li key={category.id} className="flex flex-col mb-4">
                       <div className="flex items-center justify-between">
-                        <span className="cursor-pointer" onClick={() => handleToggleCategoryProducts(category.id.toString())}>
+                        <span className="cursor-pointer"
+                              onClick={() => handleToggleCategoryProducts(category.id.toString())}>
                           {category.name}
                         </span>
                         <img
@@ -162,8 +163,14 @@ function AdminPanel() {
                           <ul className="pl-5 mt-2">
                             {productsByCategory[category.id]?.length ? (
                               productsByCategory[category.id].map((product) => (
-                                <li key={product.id} className="flex items-center" onClick={()=>{toggleAddProductInfoModal(product.id.toString(), product.name)}}>
-                                  <span className={"cursor-pointer"}>{product.name}</span>
+                                <li key={product.id} className="flex items-center">
+                                  <span
+                                    className={"cursor-pointer"}
+                                    onClick={() => {
+                                      toggleAddProductInfoModal(product.id.toString(), product.name)
+                                    }}>
+                                    {product.name}
+                                  </span>
                                   <img
                                     src="/images/trash.svg"
                                     alt="Delete"

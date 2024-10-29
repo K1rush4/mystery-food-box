@@ -59,10 +59,10 @@ export default function AddProductInfoModal({
 
     try {
       productId && await createProductInfo(consist, description, productId);
-      console.log('Инфо продукта создано:', {consist, description});
+      console.log('Инфо продукта создано:', {consist, description, productId});
       setAddProductInfoVisible(false);
     } catch (error) {
-      console.error('Ошибка при создании продукта', error);
+      console.error('Ошибка при создании инфо продукта', error);
     }
   };
 
@@ -83,7 +83,7 @@ export default function AddProductInfoModal({
               <label htmlFor="name" className="block text-gray-700">Состоит из:</label>
               <input
                 type="text"
-                id="name"
+                id="consist"
                 value={consist}
                 onChange={(e) => setConsist(e.target.value)}
                 className="border border-gray-300 rounded-md w-full p-2"
@@ -94,7 +94,7 @@ export default function AddProductInfoModal({
               <label htmlFor="price" className="block text-gray-700">Описание:</label>
               <input
                 type="text"
-                id="price"
+                id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="border border-gray-300 rounded-md w-full p-2"

@@ -143,11 +143,11 @@ export default function Registration() {
             <div className={"regInput50"}>
               <div>
                 <label htmlFor="pass">Пароль: </label>
-                <input type="password" id="pass" ref={passwordRef} onFocus={handleFocusPass} required/>
+                <input type="password" id="pass" autoComplete="new-password" ref={passwordRef} onFocus={handleFocusPass} required/>
               </div>
               <div>
                 <label htmlFor="passAgain">Повторите пароль: </label>
-                <input type="password" id="passAgain" ref={passwordAgainRef} onFocus={handleFocusPass} required/>
+                <input type="password" id="passAgain" autoComplete="new-password" ref={passwordAgainRef} onFocus={handleFocusPass} required/>
               </div>
             </div>
             <div className={"regInput50"}>
