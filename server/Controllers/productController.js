@@ -1,5 +1,5 @@
 const ApiError = require("../error/ApiError");
-const {Product} = require("../models/models");
+const {Product, Product_info} = require("../models/models");
 const uuid = require("uuid");
 const path = require("path");
 const fs = require('fs');

@@ -26,7 +26,7 @@ const Product = sequelize.define('product', {
 
 const Product_info = sequelize.define('product_info', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  title: {type: DataTypes.STRING, unique: true, allowNull: false},
+  consist: {type: DataTypes.STRING, unique: true, allowNull: false},
   description: {type: DataTypes.STRING, allowNull: false}
 })
 
