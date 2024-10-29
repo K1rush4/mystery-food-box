@@ -48,3 +48,18 @@ export const deleteProduct = async (id:string) => {
   const {data} = await $authHost.post('api/product/delete', {id})
   return data
 }
+
+export const createProductInfo = async (consist:string, description:string, productId: string) => {
+  const {data} = await $authHost.post('api/productInfo/add', {consist, description, productId})
+  return data
+}
+
+export const fetchProductInfo = async (productId: number) => {
+  const {data} = await $host.get('api/productInfo?productId=' + productId)
+  return data
+}
+
+export const deleteProductInfo = async (productId:string) => {
+  const {data} = await $authHost.post('api/productInfo/delete', {productId})
+  return data
+}

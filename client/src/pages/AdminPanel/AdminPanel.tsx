@@ -8,6 +8,7 @@ import {
 } from "../../http/productAPI.ts";
 import {MenuListItem, Product} from "../../intefaces.ts";
 import AddProductModal from "../../components/AddProductModal/AddProductModal.tsx";
+import AddProductInfoModal from "../../components/AddProductInfoModal/AddProductInfoModal.tsx";
 
 function AdminPanel() {
   const [categoriesVisible, setCategoriesVisible] = useState(false);
@@ -18,7 +19,10 @@ function AdminPanel() {
   const [productsByCategory, setProductsByCategory] = useState<{ [key: string]: Product[] }>({});
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [addProductVisible, setAddProductVisible] = useState(false);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null); // Новый стейт для ID категории
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [addProductInfoVisible, setAddProductInfoVisible] = useState(false);
+  const [productId, setProductId] = useState<string>('0');
+  const [nameProduct, setNameProduct] = useState<string>('name');
 
   const getCategories = async () => {
     try {
@@ -102,9 +106,15 @@ function AdminPanel() {
     setAddProductVisible(!addProductVisible);
   };
 
+  const toggleAddProductInfoModal = (productId: string, productName: string) => {
+    setProductId(productId);
+    setNameProduct(productName)
+    setAddProductInfoVisible(!addProductVisible);
+  };
+
   const handleProductAdded = () => {
     if (selectedCategoryId) {
-      getProductsByCategory(selectedCategoryId); // Обновляем товары для выбранной категории
+      getProductsByCategory(selectedCategoryId);
     }
   };
 
@@ -152,8 +162,8 @@ function AdminPanel() {
                           <ul className="pl-5 mt-2">
                             {productsByCategory[category.id]?.length ? (
                               productsByCategory[category.id].map((product) => (
-                                <li key={product.id} className="flex items-center">
-                                  <span>{product.name}</span>
+                                <li key={product.id} className="flex items-center" onClick={()=>{toggleAddProductInfoModal(product.id.toString(), product.name)}}>
+                                  <span className={"cursor-pointer"}>{product.name}</span>
                                   <img
                                     src="/images/trash.svg"
                                     alt="Delete"
@@ -179,24 +189,16 @@ function AdminPanel() {
         <AddProductModal
           addProductVisible={addProductVisible}
           setAddProductVisible={setAddProductVisible}
-          categoryId={selectedCategoryId} // Передаем выбранный ID категории
-          onProductAdded={handleProductAdded} // Передаем коллбек для обновления списка товаров
+          categoryId={selectedCategoryId}
+          onProductAdded={handleProductAdded}
         />
 
-        {/* Товары */}
-        <div onClick={toggleProducts} className="flex justify-center bg-yellow-200 text-4xl
-         p-3 rounded-3xl cursor-pointer">
-          Товары
-        </div>
-        {productsVisible && (
-          <div className="pl-5">
-            <ul>
-              <li>Товар 1</li>
-              <li>Товар 2</li>
-              <li>Товар 3</li>
-            </ul>
-          </div>
-        )}
+        <AddProductInfoModal
+          addProductInfoVisible={addProductInfoVisible}
+          setAddProductInfoVisible={setAddProductInfoVisible}
+          productId={productId}
+          nameProduct={nameProduct}
+        />
 
         {/* Пользователи */}
         <div onClick={toggleUsers} className="flex justify-center bg-yellow-200 text-4xl

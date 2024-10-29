@@ -17,6 +17,19 @@ class productInfoController {
     }
   }
 
+  async fetch(req, res, next) {
+    try {
+      const {productId} = req.query
+      const productInfo = await Product_info.findOne({ where: { productId } });
+      // if (!productInfo) {
+      //   return next(ApiError.badRequest('Информации по этому товару нет'))
+      // }
+      return res.json(productInfo)
+    } catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+  }
+
   async delete(req, res, next) {
     try {
       const {productId} = req.body

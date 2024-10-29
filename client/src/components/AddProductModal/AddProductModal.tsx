@@ -4,8 +4,8 @@ import { createProduct } from "../../http/productAPI.ts";
 interface IAddProductModal {
   addProductVisible: boolean;
   setAddProductVisible: (arg0: boolean) => void;
-  categoryId: string | null; // Новый пропс для ID категории
-  onProductAdded: () => void; // Новый пропс для обновления списка товаров
+  categoryId: string | null;
+  onProductAdded: () => void;
 }
 
 export default function AddProductModal({ addProductVisible, setAddProductVisible, categoryId, onProductAdded }: IAddProductModal) {
@@ -43,9 +43,9 @@ export default function AddProductModal({ addProductVisible, setAddProductVisibl
     }
 
     try {
-      await createProduct(name, price, categoryId, img); // Используйте categoryId напрямую
+      await createProduct(name, price, categoryId, img);
       console.log('Продукт создан:', { name, price, categoryId, img });
-      onProductAdded(); // Вызов коллбека для обновления списка товаров
+      onProductAdded();
       setAddProductVisible(false);
     } catch (error) {
       console.error('Ошибка при создании продукта', error);
@@ -54,13 +54,12 @@ export default function AddProductModal({ addProductVisible, setAddProductVisibl
 
   return (
     <>
-      {/* Модальное окно */}
       <div ref={modalRef} style={{ display: addProductVisible ? "block" : "none" }}>
         <div className="flex justify-end">
           <img
             src="../../../public/images/close.svg"
             onClick={() => setAddProductVisible(false)}
-            className="w-8 h-8 cursor-pointer"
+            className="w-8 h-8 mt-2 mr-2 cursor-pointer"
           />
         </div>
         <div className="flex flex-col items-center p-5">
@@ -88,7 +87,6 @@ export default function AddProductModal({ addProductVisible, setAddProductVisibl
                 required
               />
             </div>
-            {/* Убрали поле ввода для categoryId */}
             <div className="mb-4">
               <label htmlFor="img" className="block text-gray-700">Изображение:</label>
               <input
@@ -104,7 +102,6 @@ export default function AddProductModal({ addProductVisible, setAddProductVisibl
         </div>
       </div>
 
-      {/* Оверлей */}
       <div
         className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 transition-opacity duration-300 ease-in-out 
         ${addProductVisible ? "opacity-100 z-40" : "opacity-0 pointer-events-none"}`}
