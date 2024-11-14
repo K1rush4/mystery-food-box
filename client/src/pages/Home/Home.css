@@ -1,19 +1,31 @@
-.homeMain{
-    display: flex;
-    gap: 3%;
-    padding: 3%;
-}
-.contentWindow{
+.contentWindow {
     display: grid;
     gap: 20px;
     background-color: white;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.productBox {
+    gap: 20px;
+    background-color: white;
     padding: 20px;
+    width: 100%;
+}
+
+.categoryBox {
+    background-color: moccasin;
+    padding: 10px 20px;
+    font-size: 20px;
 }
 
 @media (min-width: 1200px) {
     .contentWindow {
         grid-template-columns: repeat(3, 1fr);
         width: 75%;
+
+    }
+    .productBox {
         border-radius: 40px;
     }
 }
@@ -22,6 +34,8 @@
     .contentWindow {
         grid-template-columns: repeat(2, 1fr);
         width: 70%;
+    }
+    .productBox {
         border-radius: 30px;
     }
 }
@@ -30,6 +44,8 @@
     .contentWindow {
         grid-template-columns: repeat(2, 1fr);
         width: 100%;
+    }
+    .productBox {
         border-radius: 25px;
     }
 }
