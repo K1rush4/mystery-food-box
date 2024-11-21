@@ -2,7 +2,7 @@ const ApiError = require("../error/ApiError");
 const {Basket_product, Basket} = require("../models/models");
 
 class basketController {
-  async setCart(req, res, next) {
+  async setToCart(req, res, next) {
     try {
       const {basketId, productId, counter} = req.body
       let productInCart =
@@ -30,22 +30,15 @@ class basketController {
     }
   }
 
-  // async getAll(req, res, next) {
-  //   try {
-  //     let productAll
-  //     const { categoryId } = req.query;
-  //     if (categoryId) {
-  //       productAll =
-  //         await product.findAll({ where: { categoryId } })
-  //     } else {
-  //       productAll =
-  //         await product.findAll()
-  //     }
-  //     return res.json(productAll)
-  //   } catch (e) {
-  //     next(ApiError.badRequest(e.message))
-  //   }
-  // }
+  async getAll(req, res, next) {
+    try {
+      const { basketId } = req.body;
+      const productAll = await Basket_product.findAll({ where: { basketId } })
+      return res.json(productAll)
+    } catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+  }
   //
   // async getOne(req, res, next) {
   //   try {

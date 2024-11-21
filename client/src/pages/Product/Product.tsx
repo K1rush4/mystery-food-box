@@ -23,8 +23,8 @@ export default function Product() {
             <div className={"space-y-3 md:space-y-6"}>
               <div className={"text-xl md:text-3xl xl:text-4xl"}>499р</div>
               <ButtonToCart
-                itemInCard={itemInCard}
-                setItemInCard={setItemInCard}
+                quantityInCart={itemInCard}
+                setQuantityInCart={setItemInCard}
                 style={"product"}
               />
             </div>

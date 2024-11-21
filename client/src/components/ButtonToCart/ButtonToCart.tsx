@@ -1,10 +1,11 @@
 interface IButtonToCart {
-  itemInCard: number
-  setItemInCard: (state: number) => void
+  quantityInCart: number
+  quantityPlus: () => void
+  quantityMinus: () => void
   style: string
 }
 
-export default function ButtonToCart({itemInCard, setItemInCard, style}: IButtonToCart) {
+export default function ButtonToCart({quantityInCart, quantityPlus, quantityMinus, style}: IButtonToCart) {
 
   let leftStyle = ""
   let centerStyle = ""
@@ -46,25 +47,21 @@ export default function ButtonToCart({itemInCard, setItemInCard, style}: IButton
     }
   }
 
-  if (itemInCard > 0) {
+  if (quantityInCart > 0) {
     return (
       <div className={"flex"}>
         <button
           className={leftStyle}
-          onClick={() => {
-            setItemInCard(itemInCard - 1)
-          }}>
+          onClick={quantityMinus}>
           -
         </button>
         {/*ToDo вводить какое нибудь число в кол-во шт одной карточки*/}
         <div className={centerStyle}>
-          {itemInCard}
+          {quantityInCart}
         </div>
         <button
           className={rightStyle}
-          onClick={() => {
-            setItemInCard(itemInCard + 1)
-          }}>
+          onClick={quantityPlus}>
           +
         </button>
       </div>
@@ -73,9 +70,7 @@ export default function ButtonToCart({itemInCard, setItemInCard, style}: IButton
     return (
       <button
         className={toCartStyle}
-        onClick={() => {
-          setItemInCard(1)
-        }}>
+        onClick={quantityPlus}>
         В корзину
       </button>
     )

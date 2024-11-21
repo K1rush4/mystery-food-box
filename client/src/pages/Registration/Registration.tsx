@@ -4,6 +4,7 @@ import AddressInput from "../../components/AddressInput/AddressInput.tsx";
 import {useNavigate} from "react-router-dom";
 import {login, registration} from "../../http/userAPI.ts";
 import {LoginContext} from "../../App.tsx";
+import {jwtDecode} from "jwt-decode";
 
 // interface IRegistration {
 //   setLoginVisible: (state: boolean) => void;
@@ -91,8 +92,8 @@ export default function Registration() {
     const passwordsMatch = password === passwordAgain;
 
     if (allFieldsFilled && passwordsMatch) {
-      const token = await registration(name, surname, email, phone, address, password, "USER")
-      if (token) {
+      const data = await registration(name, surname, email, phone, address, password, "USER")
+      if (data.token) {
         const token = await login(email, password)
         if (token) {
           setIsLogin(true)
@@ -106,7 +107,7 @@ export default function Registration() {
     <>
       <main className={"regMain"}>
         <div className={"regWrapper"}>
-          <div className={"regTextReg"}>Создание учетной записи</div>
+          <div className={"regTextReg"}>Создание учетной записи4</div>
           <form className={"regForm"} onSubmit={handleSubmit}>
             <div className={"regInput50"}>
               <div>

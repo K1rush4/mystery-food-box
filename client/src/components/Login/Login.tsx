@@ -28,7 +28,6 @@ export default function Login({loginVisible, setLoginVisible}: ILogin) {
 
   async function handleLogin() {
     const token = await login(loginRef.current!.value, passwordRef.current!.value)
-    console.log(token);
     if (token) {
       setIsLogin(true)
       setLoginVisible(false);

@@ -1,5 +1,5 @@
 const ApiError = require("../error/ApiError");
-const {User, Basket} = require("../models/models");
+const {User, Basket, Product} = require("../models/models");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -28,9 +28,10 @@ class userController {
       }
       const hashPassword = await bcrypt.hash(password, 5)
       const user = await User.create({name, surname, email, phone, password: hashPassword, address, role})
-      const basket = await Basket.create({userId: user.id})
+      const basketRes = await Basket.create({userId: user.id})
+      let basketId = basketRes.dataValues.id
       const token = generateJwt(user.id, user.email, user.role)
-      return res.json({token})
+      return res.json({token, basketId})
     } catch (e) {
       next(ApiError.badRequest(e.message))
     }
@@ -48,7 +49,8 @@ class userController {
         return next(ApiError.internal('Указан неверный пароль'))
       }
       const token = generateJwt(user.id, user.email, user.role)
-      return res.json({token})
+      let basket = await Basket.findOne({where: {userId: user.id}});
+      return res.json({token, basket})
     } catch (e) {
       next(ApiError.badRequest(e.message))
     }

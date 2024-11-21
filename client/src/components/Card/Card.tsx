@@ -27,8 +27,8 @@ export default function Card({name, price, img}: ICard) {
             <div className={"cardPriceToCard"}>
                 <div>{price} р.</div>
               <ButtonToCart
-                itemInCard={itemInCard}
-                setItemInCard={setItemInCard}
+                quantityInCart={itemInCard}
+                setQuantityInCart={setItemInCard}
                 style={"main"} />
             </div>
         </div>

@@ -1,11 +1,22 @@
 import CartItem from "./CartItem.tsx";
 import CustomCheckBox from "../../components/CustomCheckBox/CustomCheckBox.tsx";
 import React, {useEffect, useState} from "react";
+import {itemsInCart} from "../../http/basketAPI.ts";
+
+interface ICart{
+  id:number;
+  productCounter:number;
+  basketId: number;
+  productId:number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function Cart() {
   const [allChecked, setAllChecked] = useState(false);
   const [itemsChecked, setItemsChecked] = useState<boolean[]>([]);
   const [itemCount, setItemCount] = useState<number>(0);
+  const [data, setData] = useState<ICart[]>([]);
 
   useEffect(() => {
     //ToDo отдельно брать число 4 с сервера в useEffect
@@ -14,6 +25,23 @@ export default function Cart() {
       setItemsChecked(new Array(itemCount).fill(false));
     }
   }, [itemCount]);
+
+  useEffect(() => {
+    const loadCart = async () => {
+      try {
+        const basketId = localStorage.getItem('basketId')
+        if (basketId) {
+          const res = await itemsInCart(basketId)
+          setData(res);
+          console.log(res);
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    loadCart();
+  }, []);
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCheckedState = event.target.checked;
@@ -48,15 +76,23 @@ export default function Cart() {
         </div>
 
         <div className={"space-y-7"}>
-          {itemsChecked.map((checked, index) => (
+          {/*{itemsChecked.map((checked, index) => (*/}
+          {/*  <CartItem*/}
+          {/*    key={index}*/}
+          {/*    productId={}*/}
+          {/*    checked={checked}*/}
+          {/*    onCheckChange={(newChecked) => handleItemChange(index, newChecked)}*/}
+          {/*  />*/}
+          {/*))}*/}
+          {data && data.map((item, index) => (
             <CartItem
               key={index}
-              checked={checked}
-              onCheckChange={(newChecked) => handleItemChange(index, newChecked)}
+              basketId = {item.basketId}
+              productId={item.productId}
+              productCounter={item.productCounter}
             />
           ))}
         </div>
-
       </div>
     </main>
   )

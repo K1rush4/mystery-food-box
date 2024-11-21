@@ -39,7 +39,7 @@ export const fetchProductsInCategory = async (id:string) => {
   return data
 }
 
-export const fetchOneProduct = async (id:string) => {
+export const fetchOneProduct = async (id:number) => {
   const {data} = await $host.get('api/product/' + id)
   return data
 }

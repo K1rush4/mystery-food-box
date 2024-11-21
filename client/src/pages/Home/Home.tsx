@@ -52,7 +52,8 @@ export default function Home() {
               <div className={"contentWindow"}>
                 {products?.map((product) => (
                   product.categoryId === category.id ?
-                    <Card name={product.name}
+                    <Card id={product.id}
+                          name={product.name}
                           price={product.price}
                           img={product.img}
                     />
