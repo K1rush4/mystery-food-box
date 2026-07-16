@@ -1,8 +1,9 @@
 import "./Login.css"
-import {useContext, useEffect, useRef} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {login} from "../../http/userAPI.ts";
 import {LoginContext} from "../../App.tsx";
+import {AxiosError} from "axios";
 
 interface ILogin {
   loginVisible: boolean;
@@ -11,6 +12,7 @@ interface ILogin {
 
 export default function Login({loginVisible, setLoginVisible}: ILogin) {
   const { setIsLogin } = useContext(LoginContext);
+  const [error, setError] = useState<string | null>(null);
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -24,13 +26,23 @@ export default function Login({loginVisible, setLoginVisible}: ILogin) {
 
   function handleLoginClose() {
     setLoginVisible(false);
+    setError(null);
   }
 
   async function handleLogin() {
-    const token = await login(loginRef.current!.value, passwordRef.current!.value)
-    if (token) {
-      setIsLogin(true)
-      setLoginVisible(false);
+    setError(null);
+    try {
+      const token = await login(loginRef.current!.value, passwordRef.current!.value)
+      if (token) {
+        setIsLogin(true)
+        setLoginVisible(false);
+      }
+    } catch (e) {
+      if (e instanceof AxiosError && e.response?.data?.message) {
+        setError(e.response.data.message);
+      } else {
+        setError('Ошибка входа. Попробуйте ещё раз.');
+      }
     }
   }
 
@@ -52,6 +64,7 @@ export default function Login({loginVisible, setLoginVisible}: ILogin) {
               <input type="password" id="password" autoComplete="current-password" ref={passwordRef}/>
             </div>
           </form>
+            {error && <div className={"loginError"}>{error}</div>}
           <div className={"loginLoginButton"}>
             <button type="submit" onClick={handleLogin}>Войти</button>
           </div>
